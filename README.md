@@ -13,7 +13,7 @@ $apiKey = ComicVine::makeApiKey('YOUR_KEY');
 Next, we need register key and connection to `ComicVine` class. By default, method `register` use built-in `CURLConnection` class to make connections. Then, you haven't to write second argument.
 
 ```php
-ComicVine::register($instanceOfRegisterKey, $instanceOfConnection = null)`
+ComicVine::register($instanceOfRegisterKey, $instanceOfConnection = null)
 ```.
 
 After registering, we can creating query to ComicVine API. But by default, response will be in XML format. We can change response format by creating instance of `ResponseFormat` class.
