@@ -3,6 +3,8 @@
 namespace ComicVine\Exceptions;
 
 /**
+ * Exception when url for request is empty.
+ *
  * Class EmptyControllerRequestUrl
  *
  * @package grzgajda/comicvine-api

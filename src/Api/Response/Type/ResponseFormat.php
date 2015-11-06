@@ -3,6 +3,8 @@
 namespace ComicVine\Api\Response\Type;
 
 /**
+ * Contract for new respones formats.
+ *
  * Interface Format
  *
  * @package grzgajda/comicvine-api
@@ -11,6 +13,8 @@ namespace ComicVine\Api\Response\Type;
 interface ResponseFormat
 {
     /**
+     * Return specific format.
+     *
      * @return array
      */
     public function get();

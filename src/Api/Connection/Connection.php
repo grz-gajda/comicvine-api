@@ -3,6 +3,9 @@
 namespace ComicVine\Api\Connection;
 
 /**
+ * Contract for new connections. Connection is needed
+ * to get response from ComicVine.
+ *
  * Interface Connection
  *
  * @package grzgajda/comicvine-api

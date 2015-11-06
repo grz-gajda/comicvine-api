@@ -3,6 +3,8 @@
 namespace ComicVine\Api\Response\Type;
 
 /**
+ * Select json format for response.
+ *
  * Class JsonFormat
  *
  * @package grzgajda/comicvine-api
@@ -18,6 +20,8 @@ class JsonFormat implements ResponseFormat
     protected $format = ['format' => 'json'];
 
     /**
+     * Return JSON format.
+     *
      * @return array
      */
     public function get()

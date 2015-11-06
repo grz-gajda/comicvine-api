@@ -3,6 +3,9 @@
 namespace ComicVine\Api\Controllers;
 
 /**
+ * Define all requests to ComicVine API. Each request
+ * should have configured filters and part of URL.
+ *
  * Class ControllerRequest
  *
  * @package grzgajda/comicvine-api

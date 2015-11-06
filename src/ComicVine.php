@@ -10,6 +10,8 @@ use ComicVine\Api\Response\Type\JsonFormat;
 use ComicVine\Api\Response\Type\XmlFormat;
 
 /**
+ * Static wrapper for ComicVine package.
+ *
  * Class ComicVine
  *
  * @package grzgajda/comicvine-api
@@ -26,6 +28,8 @@ class ComicVine
     private static $key;
 
     /**
+     * Connection object.
+     *
      * @var CURLConnection
      */
     private static $conn;

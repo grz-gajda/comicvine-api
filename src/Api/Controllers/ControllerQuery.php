@@ -7,6 +7,9 @@ use ComicVine\Api\Response\Type\ResponseFormat;
 use ComicVine\ComicVine;
 
 /**
+ * Class responsible for creating a proper
+ * query to ComicVine.
+ *
  * Class ControllerApi
  *
  * @package grzgajda/comicvine-api

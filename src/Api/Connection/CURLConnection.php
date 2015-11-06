@@ -3,6 +3,9 @@
 namespace ComicVine\Api\Connection;
 
 /**
+ * Extending Connection contract. Make connection
+ * to ComicVine using cURL.
+ *
  * Class CURLConnection
  *
  * @package grzgajda/comicvine-api

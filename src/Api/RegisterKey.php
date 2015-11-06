@@ -6,6 +6,8 @@ use ComicVine\Exceptions\InvalidApiKeyException;
 use ComicVine\Exceptions\InvalidFormatRegisterKey;
 
 /**
+ * Registering and validation for API key.
+ *
  * Class RegisterKey
  *
  * @package grzgajda/comicvine-api

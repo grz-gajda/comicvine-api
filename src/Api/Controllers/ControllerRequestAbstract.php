@@ -5,6 +5,10 @@ namespace ComicVine\Api\Controllers;
 use ComicVine\Exceptions\EmptyControllerRequestUrl;
 
 /**
+ * Abstract base for ControllerRequest. Here
+ * methods from ControllerRequest are assigned
+ * and finally method call new controller.
+ *
  * Class ControllerRequestAbstract
  *
  * @package grzgajda/comicvine-api
@@ -71,7 +75,7 @@ abstract class ControllerRequestAbstract
 
         $this->url = $url;
 
-        return new ControllerQuery($this->enabledFilters, $this->url);
+        return $this->getController();
     }
 
     /**

@@ -3,6 +3,8 @@
 namespace ComicVine\Api;
 
 /**
+ * Check validation of inputs for ControllerQuery.
+ *
  * Class Validation
  *
  * @package grzgajda/comicvine-api
@@ -11,7 +13,7 @@ namespace ComicVine\Api;
 class Validation
 {
     /**
-     *
+     * Mock for enabled filters.
      *
      * @var array
      */
