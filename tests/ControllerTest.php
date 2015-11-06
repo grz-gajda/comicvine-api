@@ -2,6 +2,12 @@
 
 use ComicVine\ComicVine;
 
+/**
+ * Class ControllerTest
+ *
+ * @package grzgajda/comicvine-api
+ * @author Grzegorz Gajda <grz.gajda@outlook.com>
+ */
 class ControllerTest extends PHPUnit_Framework_TestCase
 {
     /**
