@@ -1,0 +1,21 @@
+{
+    "name": "grzgajda/comicvine-api",
+    "description": "PHP package for ComicVine API",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "grz-gajda",
+            "email": "grz.gajda@outlook.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "ComicVine\\": "src/"
+        }
+    },
+    "require": {},
+    "require-dev": {
+        "phpunit/phpunit": "^5.0",
+        "mockery/mockery": "0.9.4"
+    }
+}
