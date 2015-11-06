@@ -35,6 +35,81 @@ $response = ComicVine::getCharacters()
 
 Now, variable `$response` keep our JSON response from ComicVine API.
 
+### Requests
+
+List of implemented resources:
+
+| URL          | method        | implemented? |
+|--------------|---------------|--------------|
+| /character   | none          | false        |
+| /characters  | getCharacters | true         |
+| /chat        | none          | false        |
+| /chats       | getChats      | true         |
+| /concept     | none          | false        |
+| /concepts    | getConcepts   | true         |
+| /episode     | none          | false        |
+| /episodes    | getEpisodes   | true         |
+| /issue       | none          | false        |
+| /issues      | getIssues     | true         |
+| /location    | none          | false        |
+| /locations   | getLocations  | true         |
+| /movie       | none          | false        |
+| /movies      | getMovies     | true         |
+| /object      | none          | false        |
+| /objects     | getObjects    | true         |
+| /origin      | none          | false        |
+| /origins     | getOrigins    | true         |
+| /person      | none          | false        |
+| /people      | getPeople     | true         |
+| /power       | none          | false        |
+| /powers      | getPowers     | true         |
+| /promo       | none          | false        |
+| /promos      | getPromos     | true         |
+| /publisher   | none          | false        |
+| /publishers  | getPublishers | true         |
+| /series      | none          | false        |
+| /series_list | getSeriesList | true         |
+| /search      | getSearch     | false        |
+| /story_arc   | none          | false        |
+| /story_arcs  | getStoryArcs  | true         |
+| /team        | none          | false        |
+| /teams       | getTeams      | true         |
+| /video       | none          | false        |
+| /videos      | getVideos     | false        |
+| /video_type  | none          | false        |
+| /video_types | getVideoTypes | true         |
+| /volume      | none          | false        |
+| /volumes     | getVolumes    | true         |
+
+Calling each one of `get` method creating a new instance of `ControllerQuery` class. `ControllerQuery` class allows us to:
+
+```php
+/*
+ * Argument for setFieldList is array containing
+ * only names of fields which we want.
+ */
+$response->setFieldList(['api_detail_url', 'aliases'])
+/*
+ * Set filters to find resource you want. It needs key => value
+ * schema and allows for many filters.
+ */
+    ->setFilters(['name' => 'Batman', 'aliases' => 'Fatherless'])
+/*
+ * Allows to sort response. Key is name of field, value is asc or desc
+ * only.
+ */
+    ->setSort(['date_added' => 'asc'])
+/*
+ * Set how much elements do you want to get. Maximum limit is 100
+ * (API restrictions).
+ */
+    ->setLimit(100)
+/*
+ * From which position we would want to start getting elements.
+ */
+    ->setOffset(50)
+```
+
 ### Extending
 
 Looking on current state of package, you can write your own `Connection` class (must implement `interface Connection`) and `ResponseFormat` (must implement `interface ResponseFormat`). 
