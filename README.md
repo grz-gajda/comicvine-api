@@ -14,7 +14,7 @@ Next, we need register key and connection to `ComicVine` class. By default, meth
 
 ```php
 ComicVine::register($instanceOfRegisterKey, $instanceOfConnection = null)
-```.
+```
 
 After registering, we can creating query to ComicVine API. But by default, response will be in XML format. We can change response format by creating instance of `ResponseFormat` class.
 
