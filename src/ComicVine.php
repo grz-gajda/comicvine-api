@@ -6,6 +6,8 @@ use ComicVine\Api\Connection\Connection;
 use ComicVine\Api\Connection\CURLConnection;
 use ComicVine\Api\Controllers\ControllerRequest;
 use ComicVine\Api\RegisterKey;
+use ComicVine\Api\Response\Type\JsonFormat;
+use ComicVine\Api\Response\Type\XmlFormat;
 
 /**
  * Class ComicVine
@@ -19,14 +21,26 @@ class ComicVine
     /**
      * RegisterKey object.
      *
-     * @var ComicVine\Api\RegisterKey
+     * @var RegisterKey
      */
     private static $key;
 
     /**
-     * @var ComicVine\Api\Connection\CURLConnection
+     * @var CURLConnection
      */
     private static $conn;
+
+    /**
+     * Create instance of RegisterKey.
+     *
+     * @param $key
+     *
+     * @return \ComicVine\Api\RegisterKey
+     */
+    public static function makeApiKey($key)
+    {
+        return new RegisterKey($key);
+    }
 
     /**
      * Register a key to make connection.
@@ -40,6 +54,11 @@ class ComicVine
         self::$conn = ($conn === null) ? new CURLConnection() : $conn;
     }
 
+    /**
+     * Make a new controller to start defining request.
+     *
+     * @return \ComicVine\Api\Controllers\ControllerRequest
+     */
     public static function make()
     {
         return new ControllerRequest();
@@ -58,11 +77,30 @@ class ComicVine
     /**
      * Get Connection instance.
      *
-     * @return \ComicVine\ComicVine\Api\Connection\CURLConnection
+     * @return CURLConnection
      */
     public static function getConnection()
     {
         return self::$conn;
+    }
+
+    /**
+     * Simple factory for response format.
+     *
+     * @param string $formatType
+     *
+     * @return \ComicVine\Api\Response\Type\JsonFormat|\ComicVine\Api\Response\Type\XmlFormat
+     */
+    public static function createFormat($formatType = 'json')
+    {
+        switch ($formatType) {
+            case 'json':
+                return new JsonFormat();
+            case 'xml':
+                return new XmlFormat();
+            default:
+                return new JsonFormat();
+        }
     }
 
 }

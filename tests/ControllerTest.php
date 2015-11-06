@@ -1,11 +1,9 @@
 <?php
 
 use ComicVine\ComicVine;
-use ComicVine\Api\Response\Type\JsonFormat;
 
 class ControllerTest extends PHPUnit_Framework_TestCase
 {
-
     /**
      * Get Batman from ComicVine
      *
@@ -31,8 +29,10 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 
         ComicVine::register($key, $conn);
 
+        $responseFormat = ComicVine::createFormat('json');
+
         $result = ComicVine::make()->getCharacters()
-            ->setFormat(new JsonFormat())
+            ->setFormat($responseFormat)
             ->setFilters(['name' => 'Batman'])
             ->setFieldList(['api_detail_url'])
             ->setLimit(1)
@@ -40,5 +40,4 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals($expectedString, $result);
     }
-
 }
