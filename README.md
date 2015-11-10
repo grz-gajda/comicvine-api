@@ -1,5 +1,8 @@
 # ComicVine API
 
+[![Code Climate](https://codeclimate.com/github/grz-gajda/comicvine-api/badges/gpa.svg)](https://codeclimate.com/github/grz-gajda/comicvine-api)
+[![Build Status](https://travis-ci.org/grz-gajda/comicvine-api.svg)](https://travis-ci.org/grz-gajda/comicvine-api)
+
 __Author__: Grzegorz Gajda _<grz.gajda@outlook.com>_
 
 ### Basic usage
@@ -108,6 +111,11 @@ $response->setFieldList(['api_detail_url', 'aliases'])
  * From which position we would want to start getting elements.
  */
     ->setOffset(50)
+/*
+ * After setting request query (set methods), times to get
+ * response. Get response return XML object or JSON string.
+ */
+    ->getResponse() 
 ```
 
 ### Extending
