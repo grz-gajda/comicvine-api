@@ -18,11 +18,9 @@
             "role": "Developer"
         }
     ],
-    "support": [
-        {
-            "email": "grz.gajda@outlook.com"
-        }
-    ],
+    "support": {
+        "email": "grz.gajda@outlook.com"
+    },
     "autoload": {
         "psr-4": {
             "ComicVine\\": "src/"
