@@ -2,6 +2,9 @@
 
 [![Code Climate](https://codeclimate.com/github/grz-gajda/comicvine-api/badges/gpa.svg)](https://codeclimate.com/github/grz-gajda/comicvine-api)
 [![Build Status](https://travis-ci.org/grz-gajda/comicvine-api.svg)](https://travis-ci.org/grz-gajda/comicvine-api)
+[![Packagist](https://img.shields.io/packagist/v/grzgajda/comicvine-api.svg)](https://packagist.org/packages/grzgajda/comicvine-api)
+[![Packagist Pre Release](https://img.shields.io/packagist/vpre/grzgajda/comicvine-api.svg)]([![Packagist](https://img.shields.io/packagist/v/grzgajda/comicvine-api.svg)](https://packagist.org/packages/grzgajda/comicvine-api))
+[![Packagist](https://img.shields.io/packagist/l/grzgajda/comicvine-api.svg)](https://opensource.org/licenses/MIT)
 
 __Author__: Grzegorz Gajda _<grz.gajda@outlook.com>_
 
