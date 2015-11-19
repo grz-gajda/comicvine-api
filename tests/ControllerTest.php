@@ -22,7 +22,7 @@ class ControllerTest extends PHPUnit_Framework_TestCase
      *
      * @test
      */
-    public function getBatman()
+    public function getBatmanCurl()
     {
         $expectedString = '{\"error\":\"OK\",\"limit\":1,\"offset\":0,\"number_of_page_results\":1,\"number_of_total_results\":15,\"status_code\":1,\"results\":[{\"api_detail_url\":\"http:\/\/www.comicvine.com\/api\/character\/4005-1699\/\"}],\"version\":\"1.0\"}';
 

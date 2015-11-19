@@ -50,7 +50,7 @@ class ControllerQuery
     /**
      * Connection instance.
      *
-     * @var Connection
+     * @var \ComicVine\Api\Connection\Connection
      */
     private $connection;
 

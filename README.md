@@ -8,6 +8,10 @@
 
 __Author__: Grzegorz Gajda _<grz.gajda@outlook.com>_
 
+### Update v1.1.0
+
+If you don't want to use `CURLConnection` class, I added built-in integration with [guzzlehttp/guzzle](https://github.com/guzzle/guzzle) package. Since version 1.1.0, default provider for HTTP connection is `GuzzleConnection` class.
+
 ### Basic usage
 
 First, we need to create instance of `RegisterKey` object to verify our key. We can use `ComicVine` static class to make that object.
@@ -123,7 +127,7 @@ $response->setFieldList(['api_detail_url', 'aliases'])
 
 ### Extending
 
-Looking on current state of package, you can write your own `Connection` class (must implement `interface Connection`) and `ResponseFormat` (must implement `interface ResponseFormat`). 
+Looking on current state of package, you can write your own `Connection` class (must implement `interface Connection`) and `ResponseFormat` (must implement `interface ResponseFormat`). We can use new `Connection` class in `ComicVine::register()` method and new `ResponseFormat` class in `setFormat` method.
 
 ### License
 

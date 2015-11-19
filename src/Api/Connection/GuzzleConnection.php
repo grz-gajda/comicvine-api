@@ -11,7 +11,7 @@ use GuzzleHttp\Client;
  * Class GuzzleConnection
  *
  * @package ComicVine\Api\Connection
- * @author Grzegorz Gajda <grz.gajda@outlook.com>
+ * @author  Grzegorz Gajda <grz.gajda@outlook.com>
  */
 class GuzzleConnection implements Connection
 {
