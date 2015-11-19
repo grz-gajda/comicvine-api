@@ -4,6 +4,7 @@ namespace ComicVine;
 
 use ComicVine\Api\Connection\Connection;
 use ComicVine\Api\Connection\CURLConnection;
+use ComicVine\Api\Connection\GuzzleConnection;
 use ComicVine\Api\Controllers\ControllerRequest;
 use ComicVine\Api\RegisterKey;
 use ComicVine\Api\Response\Type\JsonFormat;
@@ -55,7 +56,7 @@ class ComicVine
     public static function register(RegisterKey $key, Connection $conn = null)
     {
         self::$key  = $key->getKey();
-        self::$conn = ($conn === null) ? new CURLConnection() : $conn;
+        self::$conn = ($conn === null) ? new GuzzleConnection() : $conn;
     }
 
     /**
