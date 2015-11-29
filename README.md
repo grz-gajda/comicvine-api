@@ -8,6 +8,11 @@
 
 __Author__: Grzegorz Gajda _<grz.gajda@outlook.com>_
 
+### Update v1.1.1
+
+Arguments for filters etc. didn't work when string has space character. With version 1.1.1, it is fixed. Also 97% of code
+has coverage (directory `tests`).
+
 ### Update v1.1.0
 
 If you don't want to use `CURLConnection` class, I added built-in integration with [guzzlehttp/guzzle](https://github.com/guzzle/guzzle) package. Since version 1.1.0, default provider for HTTP connection is `GuzzleConnection` class.
@@ -32,7 +37,7 @@ After registering, we can creating query to ComicVine API. But by default, respo
 $responseFormat = ComicVine::createFormat('json');
 ```
 
-and then using query (we want to find url to Batman:
+and then using query (we want to find url to Batman):
 
 ```php
 $response = ComicVine::getCharacters()
