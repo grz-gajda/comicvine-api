@@ -77,13 +77,7 @@ class GuzzleConnection implements Connection
      */
     public function getResult()
     {
-        if (empty($this->response) === true) {
-            throw new EmptyResponse("Request has not been executed.");
-        }
-
-        if ($this->response instanceof ResponseInterface === false) {
-            throw new EmptyResponse("Wrong response instance.");
-        }
+        $this->isNotEmptyResponse();
 
         return $this->response->getBody();
     }
@@ -96,15 +90,21 @@ class GuzzleConnection implements Connection
      */
     public function getHttpStatus()
     {
+        $this->isNotEmptyResponse();
+
+        return $this->response->getStatusCode();
+    }
+
+    /**
+     * Check is response attribute is not empty.
+     *
+     * @throws \ComicVine\Exceptions\EmptyResponse
+     */
+    protected function isNotEmptyResponse()
+    {
         if (empty($this->response) === true) {
             throw new EmptyResponse("Request has not been executed.");
         }
-
-        if ($this->response instanceof ResponseInterface === false) {
-            throw new EmptyResponse("Wrong response instance.");
-        }
-
-        return $this->response->getStatusCode();
     }
 
 }

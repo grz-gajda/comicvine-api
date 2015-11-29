@@ -1,17 +1,16 @@
 # ComicVine API
 
-[![Code Climate](https://codeclimate.com/github/grz-gajda/comicvine-api/badges/gpa.svg)](https://codeclimate.com/github/grz-gajda/comicvine-api)
-[![Build Status](https://travis-ci.org/grz-gajda/comicvine-api.svg)](https://travis-ci.org/grz-gajda/comicvine-api)
-[![Coveralls](https://img.shields.io/coveralls/grz-gajda/comicvine-api.svg)](https://coveralls.io/github/grz-gajda/comicvine-api)
-[![Packagist](https://img.shields.io/packagist/v/grzgajda/comicvine-api.svg)](https://packagist.org/packages/grzgajda/comicvine-api)
-[![Packagist Pre Release](https://img.shields.io/packagist/vpre/grzgajda/comicvine-api.svg)]([![Packagist](https://img.shields.io/packagist/v/grzgajda/comicvine-api.svg)](https://packagist.org/packages/grzgajda/comicvine-api))
-[![Packagist](https://img.shields.io/packagist/l/grzgajda/comicvine-api.svg)](https://opensource.org/licenses/MIT)
+[![Scrutinizer](https://img.shields.io/scrutinizer/g/grz-gajda/comicvine-api.svg?style=flat-square)](https://scrutinizer-ci.com/g/grz-gajda/comicvine-api/)
+[![Build Status](https://img.shields.io/travis/grz-gajda/comicvine-api.svg?style=flat-square)](https://travis-ci.org/grz-gajda/comicvine-api)
+[![Coveralls](https://img.shields.io/coveralls/grz-gajda/comicvine-api.svg?style=flat-square)](https://coveralls.io/github/grz-gajda/comicvine-api)
+[![Packagist](https://img.shields.io/packagist/v/grzgajda/comicvine-api.svg?style=flat-square)](https://packagist.org/packages/grzgajda/comicvine-api)
+[![Packagist](https://img.shields.io/packagist/l/grzgajda/comicvine-api.svg?style=flat-square)](https://opensource.org/licenses/MIT)
 
 __Author__: Grzegorz Gajda _<grz.gajda@outlook.com>_
 
 ### Update v1.1.1
 
-Arguments for filters etc. didn't work when string has space character. With version 1.1.1, it is fixed. Also 97% of code
+Arguments for filters etc. didn't work when string has space character. With version 1.1.1, it is fixed. Also 98% of code
 has coverage (directory `tests`).
 
 ### Update v1.1.0

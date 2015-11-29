@@ -24,10 +24,11 @@ abstract class ControllerRequestAbstract
      */
     protected $enabledFilters
         = [
-            'limit'  => false,
-            'offset' => false,
-            'sort'   => false,
-            'filter' => false,
+            'field_list' => true,
+            'limit'      => false,
+            'offset'     => false,
+            'sort'       => false,
+            'filter'     => false,
         ];
 
     /**
@@ -50,10 +51,11 @@ abstract class ControllerRequestAbstract
     protected function setFilters($limit = false, $offset = false, $sort = false, $filter = false)
     {
         $this->enabledFilters = [
-            'limit'  => $limit,
-            'offset' => $offset,
-            'sort'   => $sort,
-            'filter' => $filter,
+            'field_list' => true,
+            'limit'      => $limit,
+            'offset'     => $offset,
+            'sort'       => $sort,
+            'filter'     => $filter,
         ];
 
         return $this;

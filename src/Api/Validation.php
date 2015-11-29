@@ -2,6 +2,8 @@
 
 namespace ComicVine\Api;
 
+use ComicVine\Api\Filters\FilterCheck;
+
 /**
  * Check validation of inputs for ControllerQuery.
  *
@@ -12,6 +14,8 @@ namespace ComicVine\Api;
  */
 class Validation
 {
+    use FilterCheck;
+
     /**
      * Mock for enabled filters.
      *
@@ -60,7 +64,7 @@ class Validation
     /**
      * Validation for FIELD_LIST parameter.
      *
-     * @param array $input
+     * @param string|array $input
      *
      * @return bool
      */
@@ -85,18 +89,12 @@ class Validation
     /**
      * Validation for LIMIT parameter.
      *
-     * @param string $input
+     * @param string|array $input
      *
      * @return bool
      */
     protected function validLimit($input)
     {
-        if (isset($this->enabledFilters['limit']) === false
-            || $this->enabledFilters['limit'] === false
-        ) {
-            return false;
-        }
-
         if (is_int($input) === false) {
             return false;
         }
@@ -105,24 +103,18 @@ class Validation
             return false;
         }
 
-        return true;
+        return $this->isEnabledFilter('limit', $this->enabledFilters);
     }
 
     /**
      * Validation for OFFSET parameter.
      *
-     * @param string $input
+     * @param string|array $input
      *
      * @return bool
      */
     protected function validOffset($input)
     {
-        if (isset($this->enabledFilters['offset']) === false
-            || $this->enabledFilters['offset'] === false
-        ) {
-            return false;
-        }
-
         if (is_int($input) === false) {
             return false;
         }
@@ -131,24 +123,18 @@ class Validation
             return false;
         }
 
-        return true;
+        return $this->isEnabledFilter('offset', $this->enabledFilters);
     }
 
     /**
      * Validation for FILTER parameter.
      *
-     * @param array $input
+     * @param string|array $input
      *
      * @return bool
      */
     protected function validFilter($input)
     {
-        if (isset($this->enabledFilters['filter']) === false
-            || $this->enabledFilters['filter'] === false
-        ) {
-            return false;
-        }
-
         if (is_array($input) === false) {
             return false;
         }
@@ -165,25 +151,18 @@ class Validation
             }
         }
 
-        return true;
+        return $this->isEnabledFilter('filter', $this->enabledFilters);
     }
 
     /**
      * Validation for SORT parameter.
      *
-     * @param array $input
+     * @param string|array $input
      *
      * @return bool
      */
     protected function validSort($input)
     {
-
-        if (isset($this->enabledFilters['sort']) === false
-            || $this->enabledFilters['sort'] === false
-        ) {
-            return false;
-        }
-
         if (is_array($input) === false) {
             return false;
         }
@@ -197,6 +176,6 @@ class Validation
             }
         }
 
-        return true;
+        return $this->isEnabledFilter('sort', $this->enabledFilters);
     }
 }
