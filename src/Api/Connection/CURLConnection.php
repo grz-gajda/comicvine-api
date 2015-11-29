@@ -2,6 +2,10 @@
 
 namespace ComicVine\Api\Connection;
 
+use ComicVine\Exceptions\InvalidUrl;
+use ComicVine\Exceptions\EmptyResponse;
+use Psr\Http\Message\ResponseInterface;
+
 /**
  * Extending Connection contract. Make connection
  * to ComicVine using cURL.
@@ -58,9 +62,14 @@ class CURLConnection implements Connection
      * @param string $url Url address for request.
      *
      * @return $this
+     * @throws \ComicVine\Exceptions\InvalidUrl
      */
     public function setConnection($url)
     {
+        if (filter_var($url, FILTER_VALIDATE_URL) === false) {
+            throw new InvalidUrl("Passed wrong URL");
+        }
+
         // set cURL url address
         curl_setopt($this->curl, CURLOPT_URL, $url);
         // exec the request
@@ -83,9 +92,14 @@ class CURLConnection implements Connection
      * Return response from cURL request.
      *
      * @return mixed Response of request
+     * @throws \ComicVine\Exceptions\EmptyResponse
      */
     public function getResult()
     {
+        if (empty($this->response) === true) {
+            throw new EmptyResponse("Request has not been executed.");
+        }
+
         return $this->response;
     }
 }

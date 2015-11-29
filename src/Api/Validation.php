@@ -91,7 +91,9 @@ class Validation
      */
     protected function validLimit($input)
     {
-        if (isset($this->enabledFilters['limit']) && $this->enabledFilters['limit'] === false) {
+        if (isset($this->enabledFilters['limit']) === false
+            || $this->enabledFilters['limit'] === false
+        ) {
             return false;
         }
 
@@ -115,7 +117,9 @@ class Validation
      */
     protected function validOffset($input)
     {
-        if (isset($this->enabledFilters['offset']) && $this->enabledFilters['offset'] === false) {
+        if (isset($this->enabledFilters['offset']) === false
+            || $this->enabledFilters['offset'] === false
+        ) {
             return false;
         }
 
@@ -139,7 +143,9 @@ class Validation
      */
     protected function validFilter($input)
     {
-        if (isset($this->enabledFilters['filter']) && $this->enabledFilters['filter'] === false) {
+        if (isset($this->enabledFilters['filter']) === false
+            || $this->enabledFilters['filter'] === false
+        ) {
             return false;
         }
 
@@ -172,7 +178,9 @@ class Validation
     protected function validSort($input)
     {
 
-        if (isset($this->enabledFilters['sort']) && $this->enabledFilters['sort'] === false) {
+        if (isset($this->enabledFilters['sort']) === false
+            || $this->enabledFilters['sort'] === false
+        ) {
             return false;
         }
 

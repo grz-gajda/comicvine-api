@@ -1,5 +1,6 @@
 <?php
 
+use ComicVine\ComicVine;
 use ComicVine\Api\RegisterKey;
 use ComicVine\Exceptions\InvalidApiKeyException;
 use ComicVine\Exceptions\InvalidFormatRegisterKey;
@@ -10,7 +11,7 @@ use ComicVine\Exceptions\InvalidFormatRegisterKey;
  * @package grzgajda/comicvine-api
  * @author  Grzegorz Gajda <grz.gajda@outlook.com>
  */
-class RegisterKeyTest extends PHPUnit_Framework_TestCase
+class RegisterKeyTest extends TestCase
 {
     /**
      * Fake api key, random string with 40 chars.
@@ -27,56 +28,67 @@ class RegisterKeyTest extends PHPUnit_Framework_TestCase
     protected $randStr39 = "WcEAlZoaLy7WfFPuUypoAbWQoG7SRiBk8FsMCNx";
 
     /**
-     * Test creating new RegisterKey object with valid key.
+     * Test creating new RegisterKey object with valid key, testing
+     * string type.
      *
      * @test
      */
     public function validKey()
     {
-        try {
-            $key = new RegisterKey($this->randStr40);
-            $this->assertEquals($this->randStr40, $key->getKey());
-        } catch (InvalidApiKeyException $e) {
+        $key = new RegisterKey($this->randStr40);
+        $this->assertEquals($this->randStr40, $key->getKey());
+        $this->assertInternalType("string", $key->getKey());
 
-        }
+    }
+
+    /**
+     * Test creating new RegisterKey object with valid key, testing
+     * length parameter.
+     *
+     * @test
+     */
+    public function validKeyLength()
+    {
+        $key = new RegisterKey($this->randStr40);
+        $this->assertEquals(40, $key->getLength());
+        $this->assertInternalType("int", $key->getLength());
     }
 
     /**
      * Test creating new RegisterKey object with too short key.
      *
      * @test
+     * @expectedException \ComicVine\Exceptions\InvalidApiKeyException
      */
     public function invalidKeyLength()
     {
-        try {
-            $key = new RegisterKey($this->randStr39);
-            $key->getKey();
-        } catch (InvalidApiKeyException $e) {
-            $this->assertEquals(
-                "Length of API key is not valid: ".strlen($this->randStr39)." instead of 40",
-                $e->getMessage()
-            );
-        }
+        $key = new RegisterKey($this->randStr39);
+        $key->getKey();
     }
 
     /**
      * Test creating new RegisterKey object with wrong variable type.
      *
      * @test
+     * @expectedException \ComicVine\Exceptions\InvalidFormatRegisterKey
      */
     public function invalidKeyFormat()
     {
         $apikey = new StdClass();
+        $key = new RegisterKey($apikey);
+        $key->getKey();
+    }
 
-        try {
-            $key = new RegisterKey($apikey);
-            $key->getKey();
-        } catch (InvalidFormatRegisterKey $e) {
-            $this->assertEquals(
-                "Format of API key is not valid. Use string instead of ".gettype($apikey),
-                $e->getMessage()
-            );
-        }
+    /**
+     * Test creating new RegisterKey object using static ComicVine method.
+     *
+     * @test
+     */
+    public function staticMakeKey()
+    {
+        $keyStatic = ComicVine::makeApiKey($this->randStr40);
+
+        $this->assertInstanceOf('\ComicVine\Api\RegisterKey', $keyStatic);
     }
 
 }

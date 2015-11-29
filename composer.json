@@ -26,6 +26,11 @@
             "ComicVine\\": "src/"
         }
     },
+    "autoload-dev": {
+        "classmap": [
+            "tests/TestCase.php"
+        ]
+    },
     "require": {
         "guzzlehttp/guzzle": "^6.1.0"
     },

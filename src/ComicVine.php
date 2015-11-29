@@ -26,14 +26,14 @@ class ComicVine
      *
      * @var RegisterKey
      */
-    private static $key;
+    public static $key;
 
     /**
      * Connection object.
      *
      * @var CURLConnection
      */
-    private static $conn;
+    public static $conn;
 
     /**
      * Create instance of RegisterKey.

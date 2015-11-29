@@ -17,7 +17,7 @@ class XmlFormat implements ResponseFormat
      *
      * @var array
      */
-    protected $format = ['format' => 'json'];
+    protected $format = ['format' => 'xml'];
 
     /**
      * Return XML format.

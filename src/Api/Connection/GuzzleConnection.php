@@ -3,6 +3,9 @@
 namespace ComicVine\Api\Connection;
 
 use GuzzleHttp\Client;
+use ComicVine\Exceptions\InvalidUrl;
+use ComicVine\Exceptions\EmptyResponse;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Extending Connection contract. Make connection
@@ -53,9 +56,14 @@ class GuzzleConnection implements Connection
      * @param string $url Request URL.
      *
      * @return $this
+     * @throws \ComicVine\Exceptions\InvalidUrl
      */
     public function setConnection($url)
     {
+        if (filter_var($url, FILTER_VALIDATE_URL) === false) {
+            throw new InvalidUrl("Passed wrong URL");
+        }
+
         $this->response = $this->guzzle->request('GET', $url);
 
         return $this;
@@ -65,9 +73,18 @@ class GuzzleConnection implements Connection
      * Return response from request.
      *
      * @return mixed
+     * @throws \ComicVine\Exceptions\EmptyResponse
      */
     public function getResult()
     {
+        if (empty($this->response) === true) {
+            throw new EmptyResponse("Request has not been executed.");
+        }
+
+        if ($this->response instanceof ResponseInterface === false) {
+            throw new EmptyResponse("Wrong response instance.");
+        }
+
         return $this->response->getBody();
     }
 
@@ -75,9 +92,18 @@ class GuzzleConnection implements Connection
      * Return status code of request.
      *
      * @return mixed
+     * @throws \ComicVine\Exceptions\EmptyResponse
      */
     public function getHttpStatus()
     {
+        if (empty($this->response) === true) {
+            throw new EmptyResponse("Request has not been executed.");
+        }
+
+        if ($this->response instanceof ResponseInterface === false) {
+            throw new EmptyResponse("Wrong response instance.");
+        }
+
         return $this->response->getStatusCode();
     }
 

@@ -71,7 +71,7 @@ class ControllerQuery
     {
         $this->enabledFilters           = $filters;
         $this->url                      = $url;
-        $this->validation               = new Validation();
+        $this->validation               = new Validation($this->enabledFilters);
         $this->settedFilters['api_key'] = ComicVine::getKey();
         $this->connection               = ComicVine::getConnection();
     }
@@ -101,6 +101,10 @@ class ControllerQuery
      */
     public function setFilters($arr = [])
     {
+        if ($this->enabledFilters['filter'] === false) {
+            return $this;
+        }
+
         if ($this->validation->validation('filter', $arr) === true) {
             $this->iterateFilterOrSort($arr, 'filter');
         }
@@ -117,6 +121,10 @@ class ControllerQuery
      */
     public function setSorts($arr = [])
     {
+        if ($this->enabledFilters['sort'] === false) {
+            return $this;
+        }
+
         if ($this->validation->validation('sort', $arr) === true) {
             $this->iterateFilterOrSort($arr, 'sort');
         }
@@ -133,6 +141,10 @@ class ControllerQuery
      */
     public function setLimit($limit = 100)
     {
+        if ($this->enabledFilters['limit'] === false) {
+            return $this;
+        }
+
         if ($this->validation->validation('limit', $limit) === true) {
             $this->settedFilters['limit'] = $limit;
         }
@@ -149,6 +161,10 @@ class ControllerQuery
      */
     public function setOffset($offset = 0)
     {
+        if ($this->enabledFilters['offset'] === false) {
+            return $this;
+        }
+
         if ($this->validation->validation('offset', $offset) === true) {
             $this->settedFilters['offset'] = $offset;
         }
@@ -183,29 +199,12 @@ class ControllerQuery
     }
 
     /**
-     * Add new filter or sort to settedFilters array.
-     *
-     * @param string     $type  Type: sort|filter
-     * @param string     $param Param for request
-     * @param string     $value Value for request
-     * @param bool|false $last  Is element last?
-     */
-    protected function addFilterOrSort($type, $param, $value, $last = false)
-    {
-        if ($last === false) {
-            $this->settedFilters[$type] .= $param.':'.urlencode($value).',';
-        }
-
-        if ($last === true) {
-            $this->settedFilters[$type] .= $param.':'.urlencode($value);
-        }
-    }
-
-    /**
      * Iterate array to add elements to class variable.
      *
      * @param array  $array Array of elements to iterate
      * @param string $type  Type of elements: sort|filter
+     *
+     * @return false
      */
     protected function iterateFilterOrSort($array, $type)
     {
@@ -217,6 +216,25 @@ class ControllerQuery
     }
 
     /**
+     * Add new filter or sort to settedFilters array.
+     *
+     * @param string     $type  Type: sort|filter
+     * @param string     $param Param for request
+     * @param string     $value Value for request
+     * @param bool|false $last  Is element last?
+     */
+    protected function addFilterOrSort($type, $param, $value, $last = false)
+    {
+        $query = urlencode($param).':'.urlencode($value);
+
+        if ($last === false) {
+            $query .= ',';
+        }
+
+        $this->settedFilters[$type] .= $query;
+    }
+
+    /**
      * Iterate array to set allowed fields in response.
      *
      * @param array $array List of allowed fields in request.
@@ -225,7 +243,7 @@ class ControllerQuery
     {
         for ($i = 0; $i < count($array); $i++) {
             $last = ($i === count($array) - 1) ? true : false;
-            $this->settedFilters['field_list'] .= $array[$i];
+            $this->settedFilters['field_list'] .= urlencode($array[$i]);
 
             if ($last !== true) {
                 $this->settedFilters['field_list'] .= ',';
@@ -234,29 +252,51 @@ class ControllerQuery
     }
 
     /**
+     * Change value of field to blank array.
+     *
+     * @param string $field Name of filter's field.
+     *
+     * @return false
+     */
+    protected function resetFilter($field)
+    {
+        if ($field === 'field_list'
+            && $this->settedFilters[$field] === ""
+        ) {
+            $this->settedFilters[$field] = [];
+        }
+
+        if (array_key_exists($field, $this->enabledFilters) === false) {
+            return false;
+        }
+
+        if ($this->enabledFilters[$field] === false) {
+            $this->settedFilters[$field] = [];
+        }
+
+        if ($this->enabledFilters[$field] === true
+            && $this->settedFilters[$field] === ""
+        ) {
+            $this->settedFilters[$field] = [];
+        }
+    }
+
+    /**
      * Build full url from protected attributes.
      *
      * @return string
      */
-    protected function build()
+    public function build()
     {
+        foreach ($this->settedFilters as $key => $value) {
+            $this->resetFilter($key);
+        }
+
         $url   = "http://www.comicvine.com/api".$this->url.'/?';
-        $query = urldecode(http_build_query($this->settedFilters, '', '&'));
+        $query = urldecode(http_build_query($this->settedFilters, null, '&'));
 
         return $url.$query;
 
-    }
-
-    /**
-     * Prepare connection for results.
-     *
-     * @param string $url Full url for Connection instance.
-     *
-     * @return mixed
-     */
-    protected function getData($url)
-    {
-        return ComicVine::getConnection()->makeConnection()->setConnection($url);
     }
 
 }

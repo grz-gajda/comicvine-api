@@ -15,7 +15,7 @@ use GuzzleHttp\Exception\RequestException;
  * @package grzgajda/comicvine-api
  * @author  Grzegorz Gajda <grz.gajda@outlook.com>
  */
-class ControllerTest extends PHPUnit_Framework_TestCase
+class ControllerTest extends TestCase
 {
     /**
      * Get Batman from ComicVine using cURL

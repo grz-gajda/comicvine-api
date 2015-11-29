@@ -8,7 +8,7 @@ use ComicVine\Api\Validation;
  * @package grzgajda/comicvine-api
  * @author  Grzegorz Gajda <grz.gajda@outlook.com>
  */
-class ValidationTest extends PHPUnit_Framework_TestCase
+class ValidationTest extends TestCase
 {
 
     protected $filters
@@ -24,7 +24,7 @@ class ValidationTest extends PHPUnit_Framework_TestCase
      *
      * @test
      */
-    public function LimitValidation()
+    public function limitValidation()
     {
         $valid = new Validation($this->filters);
 
@@ -43,7 +43,7 @@ class ValidationTest extends PHPUnit_Framework_TestCase
      *
      * @test
      */
-    public function OffsetValidation()
+    public function offsetValidation()
     {
         $valid = new Validation($this->filters);
 
@@ -61,7 +61,7 @@ class ValidationTest extends PHPUnit_Framework_TestCase
      *
      * @test
      */
-    public function FilterValidation()
+    public function filterValidation()
     {
         $valid = new Validation($this->filters);
 
@@ -71,6 +71,9 @@ class ValidationTest extends PHPUnit_Framework_TestCase
 
         $this->assertFalse($valid->validation('filter', 'Spider-Man'));
         $this->assertFalse($valid->validation('filter', ['name' => ['name' => 'Spider-Man']]));
+        $this->assertFalse($valid->validation('filter', ['asc']));
+        $this->assertFalse($valid->validation('filter', new StdClass()));
+        $this->assertFalse($valid->validation('filter', ['name' => new StdClass()]));
     }
 
     /**
@@ -78,7 +81,7 @@ class ValidationTest extends PHPUnit_Framework_TestCase
      *
      * @test
      */
-    public function SortValidation()
+    public function sortValidation()
     {
         $valid = new Validation($this->filters);
 
@@ -86,6 +89,7 @@ class ValidationTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($valid->validation('sort', ['deleted' => 'desc']));
 
         $this->assertFalse($valid->validation('sort', ['created' => 13]));
+        $this->assertFalse($valid->validation('sort', [19 => 21]));
         $this->assertFalse($valid->validation('sort', 13));
         $this->assertFalse($valid->validation('sort', date('d-m-Y')));
     }
@@ -95,7 +99,7 @@ class ValidationTest extends PHPUnit_Framework_TestCase
      *
      * @test
      */
-    public function FieldListValidation()
+    public function fieldListValidation()
     {
         $valid = new Validation($this->filters);
 
@@ -103,6 +107,38 @@ class ValidationTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($valid->validation('field_list', ['name']));
 
         $this->assertFalse($valid->validation('field_list', ['name' => 'Batman']));
+        $this->assertFalse($valid->validation('field_list', 'Batman'));
+        $this->assertFalse($valid->validation('field_list', 72));
+        $this->assertFalse($valid->validation('field_list', [13]));
+    }
+
+    /**
+     * Test validation if not specified validation type.
+     *
+     * @test
+     */
+    public function emptyValidation()
+    {
+        $valid = new Validation($this->filters);
+
+        $this->assertFalse($valid->validation('', 13));
+        $this->assertFalse($valid->validation('', 'Batman'));
+    }
+
+    /**
+     * Test validation when specified validation type
+     * is disabled.
+     *
+     * @test
+     */
+    public function disabledValidation()
+    {
+        $valid = new Validation();
+
+        $this->assertFalse($valid->validation('limit', 99));
+        $this->assertFalse($valid->validation('offset', 32));
+        $this->assertFalse($valid->validation('filter', ['name' => 'asc']));
+        $this->assertFalse($valid->validation('sort', ['created' => 'asc']));
     }
 
 }
