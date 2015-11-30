@@ -79,9 +79,7 @@ trait FilterValidation
         array_walk($types, function (&$type) use ($param) {
             $type = $this->isParamOfTypeSingle($param, $type);
         });
-
-        echo in_array(true, $types);
-
+        
         return in_array(true, $types);
     }
 
