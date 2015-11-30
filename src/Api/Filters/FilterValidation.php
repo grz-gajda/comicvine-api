@@ -26,11 +26,9 @@ trait FilterValidation
             return false;
         }
 
-        if ($input < $min) {
-            return false;
-        }
-
-        if ($input > $max && is_int($max) === true) {
+        if ($input < $min
+            || ($input > $max && is_int($max) === true)
+        ) {
             return false;
         }
 
@@ -41,7 +39,7 @@ trait FilterValidation
      * Check if key or value is not of any described types.
      *
      * @param string       $key         Value of key
-     * @param string|array $keyParams   Not-Types of key
+     * @param string       $keyParams   Not-Types of key
      * @param string       $value       Value of value
      * @param string|array $valueParams Not-Types of value
      *
@@ -49,32 +47,23 @@ trait FilterValidation
      */
     public function isKeyAndValueAre($key, $keyParams, $value, $valueParams)
     {
-        if ($this->isParamOfType($key, $keyParams) === false) {
-            return false;
+        if (is_array($valueParams) === true) {
+            if ($this->isParamOfTypeMultiple($value, $valueParams) === false
+                || $this->isParamOfTypeSingle($key, $keyParams) === false
+            ) {
+                return false;
+            }
         }
 
-        if ($this->isParamOfType($value, $valueParams) === false) {
-            return false;
+        if (is_array($valueParams) === false) {
+            if ($this->isParamOfTypeSingle($key, $keyParams) === false
+                || $this->isParamOfTypeSingle($value, $valueParams) === false
+            ) {
+                return false;
+            }
         }
 
         return true;
-    }
-
-    /**
-     * Check if values is any of these types.
-     *
-     * @param string       $param Value
-     * @param string|array $types Type or array of types
-     *
-     * @return bool
-     */
-    public function isParamOfType($param, $types)
-    {
-        if (is_array($types) === true) {
-            return $this->isParamOfTypeMultiple($param, $types);
-        }
-
-        return $this->isParamOfTypeSingle($param, $types);
     }
 
     /**
@@ -87,15 +76,13 @@ trait FilterValidation
      */
     public function isParamOfTypeMultiple($param, $types)
     {
-        array_walk($types, function(&$type) use ($param) {
+        array_walk($types, function (&$type) use ($param) {
             $type = $this->isParamOfTypeSingle($param, $type);
         });
 
-        if (in_array(true, $types) === true) {
-            return true;
-        }
+        echo in_array(true, $types);
 
-        return false;
+        return in_array(true, $types);
     }
 
     /**

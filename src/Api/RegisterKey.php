@@ -34,8 +34,6 @@ class RegisterKey
     public function __construct($key)
     {
         $this->key = $key;
-
-        return $this->checkLength();
     }
 
     /**
@@ -45,7 +43,8 @@ class RegisterKey
      */
     public function getKey()
     {
-        return $this->key;
+        return $this->checkLength()
+            ->key;
     }
 
     /**

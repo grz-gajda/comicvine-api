@@ -32,13 +32,6 @@ abstract class ControllerRequestAbstract
         ];
 
     /**
-     * Part of URL.
-     *
-     * @var string
-     */
-    protected $url = "";
-
-    /**
      * Set parameters which can be added to URL.
      *
      * @param bool|false $limit  The number of results to display per page.
@@ -71,23 +64,7 @@ abstract class ControllerRequestAbstract
      */
     protected function setUrl($url)
     {
-        if (empty($url) === true) {
-            throw new EmptyControllerRequestUrl("URL parameter for request cannot be empty.");
-        }
-
-        $this->url = $url;
-
-        return $this->getController();
-    }
-
-    /**
-     * Return new controller for making query.
-     *
-     * @return \ComicVine\Api\Controllers\ControllerQuery
-     */
-    protected function getController()
-    {
-        return new ControllerQuery($this->enabledFilters, $this->url);
+        return new ControllerQuery($this->enabledFilters, $url);
     }
 
 }

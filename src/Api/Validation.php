@@ -51,9 +51,9 @@ class Validation
             case 'field_list':
                 return $this->validFieldList($input);
             case 'limit':
-                return $this->validLimit($input);
+                return $this->validNumber('limit', $input, 0, 100);
             case 'offset':
-                return $this->validOffset($input);
+                return $this->validNumber('offset', $input, 0);
             case 'filter':
                 return $this->validFilter($input);
             case 'sort':
@@ -86,35 +86,22 @@ class Validation
     }
 
     /**
-     * Validation for LIMIT parameter.
+     * Check if offset or limit is valid.
      *
-     * @param string|array $input
+     * @param string         $type  Type of valid (offset or limit)
+     * @param string         $input Value
+     * @param integer        $min   Min range what value can be
+     * @param string|integer $max   Max range what value can be
      *
-     * @return bool
+     * @return $this|bool
      */
-    protected function validLimit($input)
+    protected function validNumber($type, $input, $min, $max = "")
     {
-        if ($this->isIntAndBetween($input, 0, 100) === false) {
+        if ($this->isIntAndBetween($input, $min, $max) === false) {
             return false;
         }
 
-        return $this->isEnabledFilter('limit', $this->enabledFilters);
-    }
-
-    /**
-     * Validation for OFFSET parameter.
-     *
-     * @param string|array $input
-     *
-     * @return bool
-     */
-    protected function validOffset($input)
-    {
-        if ($this->isIntAndBetween($input, 0) === false) {
-            return false;
-        }
-
-        return $this->isEnabledFilter('offset', $this->enabledFilters);
+        return $this->isEnabledFilter($type, $this->enabledFilters);
     }
 
     /**

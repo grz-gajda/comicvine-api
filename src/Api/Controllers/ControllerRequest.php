@@ -187,10 +187,10 @@ class ControllerRequest extends ControllerRequestAbstract
      *
      * @todo Waiting for implementation
      */
-    public function getSearch()
+    /*public function getSearch()
     {
         // @todo Waiting for implementation
-    }
+    }*/
 
     /**
      * Get all story arcs from ComicVine.
@@ -233,10 +233,10 @@ class ControllerRequest extends ControllerRequestAbstract
      *
      * @todo Waiting for implementation
      */
-    public function getVideos()
+    /*public function getVideos()
     {
         // @todo Waiting for implementation
-    }
+    }*/
 
     /**
      * Get all video types from ComicVine.

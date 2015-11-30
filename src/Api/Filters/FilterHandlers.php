@@ -22,15 +22,12 @@ trait FilterHandlers
     protected function flushDisabledFilters(array $filters, array $enabled)
     {
         array_walk($filters, function (&$param, $field) use ($enabled) {
-            // 'api_key' field
             if ($this->isApiKey($field) === true) {
                 return $param;
             }
-            // 'field_list'
             if ($this->isFieldList($field) === true) {
                 return $param = $this->validFieldList($field, $param);
             }
-            // 'sort', 'filter', 'limit', 'offset'
             if ($this->isFilter($field, $enabled) === true) {
                 return $param = $this->validFilter($param);
             }
