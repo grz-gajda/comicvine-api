@@ -47,20 +47,10 @@ trait FilterValidation
      */
     public function isKeyAndValueAre($key, $keyParams, $value, $valueParams)
     {
-        if (is_array($valueParams) === true) {
-            if ($this->isParamOfTypeMultiple($value, $valueParams) === false
-                || $this->isParamOfTypeSingle($key, $keyParams) === false
-            ) {
-                return false;
-            }
-        }
-
-        if (is_array($valueParams) === false) {
-            if ($this->isParamOfTypeSingle($key, $keyParams) === false
-                || $this->isParamOfTypeSingle($value, $valueParams) === false
-            ) {
-                return false;
-            }
+        if ($this->isParamOfTypeSingle($key, $keyParams) === false
+            || $this->isParamOfTypeSingle($value, $valueParams) === false
+        ) {
+            return false;
         }
 
         return true;
@@ -79,7 +69,7 @@ trait FilterValidation
         array_walk($types, function (&$type) use ($param) {
             $type = $this->isParamOfTypeSingle($param, $type);
         });
-        
+
         return in_array(true, $types);
     }
 
@@ -93,6 +83,31 @@ trait FilterValidation
      */
     public function isParamOfTypeSingle($param, $type)
     {
+        if (is_array($type) === true) {
+            return $this->isParamOfTypeMultiple($param, $type);
+        }
+
         return call_user_func("is_$type", $param);
+    }
+
+    /**
+     * Check if value has a proper value and key a proper type.
+     *
+     * @param string $key      Key of value
+     * @param string $keyParam Key possible types
+     * @param string $param    Param value
+     * @param array  $string   Param possible values.
+     *
+     * @return boolean
+     */
+    public function isParamAValue($key, $keyParam, $param, array $string)
+    {
+        if ($this->isParamOfTypeSingle($key, $keyParam) === true
+            && in_array($param, $string) === true
+        ) {
+            return true;
+        }
+
+        return false;
     }
 }

@@ -43,7 +43,7 @@ class Validation
      * @param string       $type
      * @param string|array $input
      *
-     * @return bool
+     * @return boolean|null
      */
     public function validation($type = "", $input)
     {
@@ -88,10 +88,10 @@ class Validation
     /**
      * Check if offset or limit is valid.
      *
-     * @param string         $type  Type of valid (offset or limit)
-     * @param string         $input Value
-     * @param integer        $min   Min range what value can be
-     * @param string|integer $max   Max range what value can be
+     * @param string       $type  Type of valid (offset or limit)
+     * @param string|array $input Value
+     * @param integer      $min   Min range what value can be
+     * @param integer      $max   Max range what value can be
      *
      * @return $this|bool
      */
@@ -109,7 +109,7 @@ class Validation
      *
      * @param string|array $input
      *
-     * @return bool
+     * @return boolean|null
      */
     protected function validFilter($input)
     {
@@ -131,7 +131,7 @@ class Validation
      *
      * @param string|array $input
      *
-     * @return bool
+     * @return boolean|null
      */
     protected function validSort($input)
     {
@@ -140,10 +140,7 @@ class Validation
         }
 
         foreach ($input as $key => $value) {
-            if (is_string($key) === false) {
-                return false;
-            }
-            if ($value !== 'asc' && $value !== 'desc') {
+            if ($this->isParamAValue($key, 'string', $value, ['asc', 'desc']) === false) {
                 return false;
             }
         }
