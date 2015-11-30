@@ -76,8 +76,8 @@ trait FilterValidation
     /**
      * Check if value is not that type.
      *
-     * @param string $param Value
-     * @param string $type  Type
+     * @param string       $param Value
+     * @param string|array $type  Type
      *
      * @return bool
      */
