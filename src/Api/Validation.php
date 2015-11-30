@@ -3,6 +3,7 @@
 namespace ComicVine\Api;
 
 use ComicVine\Api\Filters\FilterCheck;
+use ComicVine\Api\Filters\FilterValidation;
 
 /**
  * Check validation of inputs for ControllerQuery.
@@ -15,6 +16,7 @@ use ComicVine\Api\Filters\FilterCheck;
 class Validation
 {
     use FilterCheck;
+    use FilterValidation;
 
     /**
      * Mock for enabled filters.
@@ -75,10 +77,7 @@ class Validation
         }
 
         foreach ($input as $key => $value) {
-            if (is_int($key) === false) {
-                return false;
-            }
-            if (is_string($value) === false) {
+            if ($this->isKeyAndValueAre($key, 'int', $value, 'string') === false) {
                 return false;
             }
         }
@@ -95,11 +94,7 @@ class Validation
      */
     protected function validLimit($input)
     {
-        if (is_int($input) === false) {
-            return false;
-        }
-
-        if ($input < 0 || $input > 100) {
+        if ($this->isIntAndBetween($input, 0, 100) === false) {
             return false;
         }
 
@@ -115,11 +110,7 @@ class Validation
      */
     protected function validOffset($input)
     {
-        if (is_int($input) === false) {
-            return false;
-        }
-
-        if ($input < 0) {
+        if ($this->isIntAndBetween($input, 0) === false) {
             return false;
         }
 
@@ -140,13 +131,7 @@ class Validation
         }
 
         foreach ($input as $key => $value) {
-            if (is_string($key) === false) {
-                return false;
-            }
-            if (is_array($value) === true) {
-                return false;
-            }
-            if (is_object($value) === true) {
+            if ($this->isKeyAndValueAre($key, 'string', $value, ['string', 'int', 'float']) === false) {
                 return false;
             }
         }

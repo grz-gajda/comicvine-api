@@ -22,16 +22,16 @@ class ComicVine
 {
 
     /**
-     * RegisterKey object.
+     * Api Key
      *
-     * @var RegisterKey
+     * @var string
      */
     public static $key;
 
     /**
      * Connection object.
      *
-     * @var CURLConnection
+     * @var \ComicVine\Api\Connection\Connection;
      */
     public static $conn;
 

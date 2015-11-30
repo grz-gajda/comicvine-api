@@ -23,13 +23,30 @@ trait FilterCheck
     protected function isEnabledFilter($field, array $filters, $object = null)
     {
         if (array_key_exists($field, $filters) === false) {
-            return ($object === null) ? false : $object;
+            return $this->returnObjectOrBool($object);
         }
 
         if ($filters[$field] === false) {
-            return ($object === null) ? false : $object;
+            return $this->returnObjectOrBool($object);
         }
 
         return true;
+    }
+
+    /**
+     * Check if object is null, if yes: return bool, if not:
+     * return object.
+     *
+     * @param mixed $object Instance of called class.
+     *
+     * @return bool|null
+     */
+    protected function returnObjectOrBool($object)
+    {
+        if ($object === null) {
+            return false;
+        }
+
+        return $object;
     }
 }
